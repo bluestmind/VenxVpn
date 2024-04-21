@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="./assets/libs/swiper/swiper-bundle.min.css">
+
+
+
+        <!--========== BOX ICONS ==========-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+        <!--========== CSS ==========-->
+        <link rel="stylesheet" href="../static/css/dashboard.css">
+        <!--========== SWIPER ==========-->
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+        <!--========== tailwind ==========-->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+            <!-- font source link -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400&display=swap" rel="stylesheet">
+        <!-- swiper links -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <title>Responsive sidebar submenus</title>
+    </head>
+    <body>
+        <!--========== HEADER ==========-->
+        <header class="header">
+            <div class="header__container">
+                <img src="../assets/img/perfil.jpg" alt="" class="header__img">
+
+                <a href="#" class="header__logo">Dashboard</a>
+
+                <div class="header__search">
+                    <input type="search" placeholder="Search" class="header__input">
+                    <i class='bx bx-search header__icon'></i>
+                </div>
+
+                <div class="header__toggle">
+                    <i class='bx bx-menu' id="header-toggle"></i>
+                </div>
+            </div>
+        </header>
+
+        <!--========== NAV ==========-->
+        <div class="nav" id="navbar">
+            <nav class="nav__container">
+                <div>
+                    <a href="#" class="nav__link nav__logo">
+                        <i class='bx bxs-disc nav__icon' ></i>
+                        <span class="nav__logo-name">VenX</span>
+                    </a>
+
+                    <div class="nav__list">
+                        <div class="nav__items">
+                            <h3 class="nav__subtitle">Profile</h3>
+
+                            <a href="#" class="nav__link active">
+                                <i class='bx bx-analyse nav__icon' ></i>
+                                <span class="nav__name">Dashboard</span>
+                            </a>
+
+                            <a href="#" class="nav__link active">
+                                <i class='bx bx-server nav__icon' ></i>
+                                <span class="nav__name">My Configs</span>
+                            </a>
+
+                            <a href="#" class="nav__link">
+                                <i class='bx bx-wallet nav__icon' ></i>
+                                <span class="nav__name">Wallet</span>
+                            </a>
+                        </div>
+
+                        <div class="nav__items">
+                            <h3 class="nav__subtitle">Shop</h3>
+
+                            <div class="nav__dropdown">
+                                <a href="#" class="nav__link">
+                                    <i class='bx bx-share-alt nav__icon' ></i>
+                                    <span class="nav__name">Direct Selling</span>
+                                    <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                                </a>
+
+                                <div class="nav__dropdown-collapse">
+                                    <div class="nav__dropdown-content">
+                                        <a href="#" class="nav__dropdown-item">Profits</a>
+                                        <a href="#" class="nav__dropdown-item">Overview</a>
+                                        <a href="#" class="nav__dropdown-item">Publish</a>
+                                        <a href="#" class="nav__dropdown-item">Program</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <a href="#" class="nav__link">
+                                <i class='bx bx-news nav__icon' ></i>
+                                <span class="nav__name">News</span>
+                            </a>
+                            <a href="#" class="nav__link">
+                                <i class='bx bx-support nav__icon' ></i>
+                                <span class="nav__name">Support</span>
+                            </a>
+
+                            <div class="nav__dropdown">
+                                <a href="#" class="nav__link">
+                                    <i class='bx bx-cog nav__icon' ></i>
+                                    <span class="nav__name">Settings</span>
+                                    <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                                </a>
+
+                                <div class="nav__dropdown-collapse">
+                                    <div class="nav__dropdown-content">
+                                        <a href="{{ url_for('change_password') }}" class="nav__dropdown-item">Passwords</a>
+                                        <a href="#" class="nav__dropdown-item">Mail</a>
+                                        <a href="#" class="nav__dropdown-item">Accounts</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{{ url_for('logout') }}" class="nav__link nav__logout">
+                    <i class='bx bx-log-out nav__icon' ></i>
+                    <span class="nav__name">Log Out</span>
+                </a>
+            </nav>
+        </div>
+        <div class="alert" id="alertMessage">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Success!</strong> Text copied successfully.
+        </div>
+        <!--========== CONTENTS ==========-->
+        <div class="alert" id="alertMessage">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Success!</strong> Text copied successfully.
+        </div>
+    <!-- main content start -->
+    <section class="main-content">
+        <!-- title start-->
+        <!-- <div class="title-container">
+            <h3 class="dashboard-title">Dashboard</h3>
+            <div class="path-container">
+                <a href="#">Dashboard</a>
+                >
+                <a class="clicked" href="#">Dashboard</a>
+            </div>
+        </div> -->
+        <!-- title end -->
+
+        <div class="cards mobile-item">
+            <!-- pay card start -->
+            <div class="main-card pay-card">
+                <div class="card-title-container">
+                    <i class='bx bx-wallet icon' ></i>
+                    <h5>VenX Pay</h5>
+                </div>
+               <h1>{{ trx_amount }}</h1>
+                <button onclick="">Withdraw</button>
+            </div>
+            <!-- pay card end -->
+
+            <!-- buttons start -->
+            <div class="buttons-container">
+                <a href="#" class="configs">My VenX Configs</a>
+                <a href="#" class="partner">Become our partner</a>
+            </div>
+            <!-- buttons end -->
+
+            <!-- direct sell card start -->
+            <div class="main-card direct-sell">
+                <div class="card-title-container">
+                    <i class='bx bx-share-alt icon' ></i>
+                    <h5>Direct Sell</h5>
+                </div>
+
+                <div class="direct-sell-content">
+                    <h2>{{ referral_code }}</h2>
+                    <div class="referral-id">
+                        <p>Click to copy your referral ID</p>
+                        <div class="copy-id">
+                            <i class='bx bx-smile smile_icon' style="color:aliceblue"></i>
+                            <button>Click me</button>
+                            <input type="text" value={{ referral_code }} id="copyText" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <span>{{ member_amount }}</span>
+                    <p>Since last week</p>
+                </div>
+            </div>
+            <!-- direct sell card end -->
+
+            <!-- total profile start -->
+            <div class="main-card total-profile">
+                <div class="card-title-container">
+                    <img src="images/UI-content-dashboard/network.svg" alt="network icon">
+                    <h5>Total Profits</h5>
+                </div>
+                <h1>{{ total_profit }}</h1>
+                <div class="card-footer">
+                    <span>{{ profit_amount }}</span>
+                    <p>Since last week</p>
+                </div>
+            </div>
+            <!-- total profile end -->
+        </div>
+
+        <!-- desktop content start -->
+        <div class="desktop-cards desktop-item">
+            <!-- pack1 start -->
+            <div class="desktop-pack1">
+                <!-- desktop pay card start -->
+                <div class="main-card pay-card">
+                    <div class="card-title-container">
+                        <i class='bx bx-wallet icon' ></i>
+                        <h5>VenX Pay</h5>
+                    </div>
+                    <h1>{{ trx_amount }}</h1>
+                    <button onclick="">Withdraw</button>
+                </div>
+                <!-- desktop pay card end -->
+
+                <!-- direct sell card start -->
+                <div class="main-card direct-sell">
+                    <div class="card-title-container">
+                        <i class='bx bx-share-alt icon' ></i>
+                        <h5>Direct Sell</h5>
+                    </div>
+
+                    <div class="direct-sell-content">
+                        <h2>{{ referral_code }}</h2>
+                        <div class="referral-id">
+                            <p>Click to copy your referral ID</p>
+                            <div class="copy-id">
+                                <i class='bx bx-smile smile_icon' style="color:aliceblue"></i>
+                                <button>Click me</button>
+                                <input type="text" value={{ referral_code }} id="copyText" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>{{ member_amount }}</span>
+                        <p>Since last week</p>
+                    </div>
+
+                </div>
+                <!-- desktop direct sell card end -->
+            </div>
+            <!-- pack1 end -->
+
+
+            <!-- buttons start -->
+            <div class="buttons-container">
+                <a href="#" class="configs">My VenX Configs</a>
+                <a href="#" class="partner">Become our partner</a>
+            </div>
+            <!-- buttons end -->
+
+            <!-- total profile start -->
+            <div class="main-card total-profile">
+                <div class="card-title-container">
+                    <img src="images/UI-content-dashboard/network purple.svg" alt="network icon">
+                    <h5>Total Profits</h5>
+                </div>
+                <h1>{{ total_profit }}</h1>
+                <div class="card-footer">
+                    <span>{{ profit_amount }}</span>
+                    <p>Since last week</p>
+                </div>
+            </div>
+            <!-- total profile end -->
+        </div>
+        <!-- desktop content end -->
+        <div class="config_slider">
+            <swiper-container class="mySwiper_config" pagination="true">
+                <swiper-slide>
+                <div class="chart_card">
+                    <div class="chart-container">
+                        <!-- <h5 class="title_config">Config Overview</h5> -->
+                        <div id="invested-overview" data-colors='["#5156be", "#34c38f"]' class="apex-charts">
+                        </div>
+                        <div class="chart-container-deatils">
+                            <p class="mb-1 text-gray text-right">Total usage</p>
+                            <h4 class="mb-2 text-gray-800 text-21 dark-text-gray-100 text-right">23 GB</h4>
+                            <p class="mb-6 text-gray text-right"> + 0.0012.23 ( 0.2 % )
+                                <i class="ml-1 text-green mdi mdi-arrow-up"></i>
+                            </p>
+                            <div class="grid grid-cols-12">
+                                <div class="col-span-6">
+                                    <div class="gap">
+                                        <p class="mb-2 text-gray-600 uppercase text-11 text-right">Current plan</p>
+                                        <h5 class="mb-2 text-gray-800 dark-text-gray-100 text-right">Sapphire</h5>
+                                    </div>
+                                </div>
+                                <div class="col-span-6">
+                                    <div>
+                                        <p class="mb-2 text-gray-600 uppercase text-11 text-right">Expires on</p>
+                                        <h5 class="mb-2 text-gray-800 dark-text-gray-100 text-right">03/03/2025</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 btn-middel">
+                                <a href="#" class="btn ">View more
+                                    <i class="mdi mdi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-months">
+                        <div>
+                            <select>
+                                <option value="MAY" selected="">May</option>
+                                <option value="AP">April</option>
+                                <option value="MA">March</option>
+                                <option value="FE">February</option>
+                                <option value="JA">January</option>
+                                <option value="DE">December</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                </swiper-slide>
+                <swiper-slide>
+                    <div class="chart_card">
+                    <div class="chart-container">
+                        <div id="invested-overview" data-colors='["#5156be", "#34c38f"]' class="apex-charts">
+                        </div>
+                        <div class="chart-container-deatils">
+                            <p class="mb-1 text-gray text-right">Total usage</p>
+                            <h4 class="mb-2 text-gray-800 text-21 dark-text-gray-100 text-right">23 GB</h4>
+                            <p class="mb-6 text-gray text-right"> + 0.0012.23 ( 0.2 % )
+                                <i class="ml-1 text-green mdi mdi-arrow-up"></i>
+                            </p>
+                            <div class="grid grid-cols-12">
+                                <div class="col-span-6">
+                                    <div class="gap">
+                                        <p class="mb-2 text-gray-600 uppercase text-11 text-right">Current plan</p>
+                                        <h5 class="mb-2 text-gray-800 dark-text-gray-100 text-right">Sapphire</h5>
+                                    </div>
+                                </div>
+                                <div class="col-span-6">
+                                    <div>
+                                        <p class="mb-2 text-gray-600 uppercase text-11 text-right">Expires on</p>
+                                        <h5 class="mb-2 text-gray-800 dark-text-gray-100 text-right">03/03/2025</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 btn-middel">
+                                <a href="#" class="btn ">View more
+                                    <i class="mdi mdi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-months">
+                        <div>
+                            <select>
+                                <option value="MAY" selected="">May</option>
+                                <option value="AP">April</option>
+                                <option value="MA">March</option>
+                                <option value="FE">February</option>
+                                <option value="JA">January</option>
+                                <option value="DE">December</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </swiper-slide>
+                <swiper-slide>Slide 3</swiper-slide>
+            </swiper-container>
+        </div>
+
+            <div class="news_slider">
+                <i class='bx bx-news flex_center news_icon' ></i>
+                <h1 class="h1_news">Venx News</h1>
+                <swiper-container class="mySwiper_news" pagination="true">
+                        <swiper-slide>
+                            <div class="news_deatils">
+                                This field is supposed to serve as news and tutorials feed,
+                                as more tutorials will be posted here users will be notified to lead
+                                on other directoriesThis field is supposed to serve as news and tutorials feed,
+                                as more tutorials will be posted here users will be notified to lead on other directoriesThis
+                                field is supposed to serve as news and tutorials feed, as more tutorials will be posted
+                                here users will be notified to lead on other directories
+
+                                <div class="mt-3 btn-middel-news">
+                                    <a href="#" class="btn ">View more
+                                        <i class="mdi mdi-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </swiper-slide>
+                        <swiper-slide>Slide 2</swiper-slide>
+                        <swiper-slide>Slide 3</swiper-slide>
+                        <swiper-slide>Slide 4</swiper-slide>
+                        <swiper-slide>Slide 5</swiper-slide>
+                        <swiper-slide>Slide 6</swiper-slide>
+                        <swiper-slide>Slide 7</swiper-slide>
+                        <swiper-slide>Slide 8</swiper-slide>
+                        <swiper-slide>Slide 9</swiper-slide>
+                </swiper-container>
+            </div>
+
+
+        </section>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="dashboard.js"></script>
+         <!--========== SWIPER JS ==========-->
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+        <!-- swiper link -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+        <!-- apexcharts -->
+        <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+        <script src="assets/libs/chart.js/Chart.bundle.min.js"></script>
+
+        <script src="assets/libs/echarts/echarts.min.js"></script>
+
+        <!-- Plugins js-->
+        <script src="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+
+        <script src="./assets/libs/swiper/swiper-bundle.min.js"></script>
+
+        <!-- dashboard init -->
+        <script  src="assets/assets/js/pages/dashboard.init.js"></script>
+        <script  src="chart.js"></script>
+        <script src="assets/assets/js/pages/nav&tabs.js"></script>
+
+        <script src="assets/assets/js/pages/login.init.js"></script>
+
+        <script  src="assets/assets/js/app.js"></script>
+        <!-- <script>
+            var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+            },
+            });
+        </script> -->
+    </body>
+</html>

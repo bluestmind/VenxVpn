@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="../assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="../assets/libs/swiper/swiper-bundle.min.css">
+
+
+        <!--========== BOX ICONS ==========-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+        <!--========== CSS ==========-->
+        <link rel="stylesheet" href="../static/css/test.css">
+        <!--========== SWIPER ==========-->
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+        <!--========== tailwind ==========-->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+            <!-- font source link -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400&display=swap" rel="stylesheet">
+        <!-- swiper links -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <title>Responsive sidebar submenus</title>
+    </head>
+    <body>
+        <!--========== HEADER ==========-->
+        <header class="header">
+            <div class="header__container">
+                <img src="../assets/img/perfil.jpg" alt="" class="header__img">
+
+                <a href="#" class="header__logo">Dashboard</a>
+
+                <div class="header__search">
+                    <input type="search" placeholder="Search" class="header__input">
+                    <i class='bx bx-search header__icon'></i>
+                </div>
+
+                <div class="header__toggle">
+                    <i class='bx bx-menu' id="header-toggle"></i>
+                </div>
+            </div>
+        </header>
+
+        <!--========== NAV ==========-->
+        <div class="nav" id="navbar">
+            <nav class="nav__container">
+                <div>
+                    <a href="#" class="nav__link nav__logo">
+                        <i class='bx bxs-disc nav__icon' ></i>
+                        <span class="nav__logo-name">VenX</span>
+                    </a>
+
+                    <div class="nav__list">
+                        <div class="nav__items">
+                            <h3 class="nav__subtitle">Admin Section</h3>
+
+                            <a href="{{ url_for('users') }}" class="nav__link">
+                                <i class='bx bx-analyse nav__icon' ></i>
+                                <span class="nav__name">Users</span>
+                            </a>
+
+                            <a href="#" class="nav__link">
+                                <i class='bx bx-mail-send nav__icon' ></i>
+                                <span class="nav__name">Tickets</span>
+                            </a>
+
+                        </div>
+
+                        <div class="nav__items">
+                            <h3 class="nav__subtitle">Users</h3>
+
+                            <a href="#" class="nav__link">
+                                <i class='bx bx-support nav__icon' ></i>
+                                <span class="nav__name">Support</span>
+                            </a>
+
+                            <div class="nav__dropdown">
+                                <a href="#" class="nav__link">
+                                    <i class='bx bx-cog nav__icon' ></i>
+                                    <span class="nav__name">Settings</span>
+                                    <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                                </a>
+
+                                <div class="nav__dropdown-collapse">
+                                    <div class="nav__dropdown-content">
+                                        <a href="{{ url_for('change_password') }}" class="nav__dropdown-item">Passwords</a>
+                                        <a href="#" class="nav__dropdown-item">Mail</a>
+                                        <a href="#" class="nav__dropdown-item">Accounts</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{{ url_for('logout') }}" class="nav__link nav__logout">
+                    <i class='bx bx-log-out nav__icon' ></i>
+                    <span class="nav__name">Log Out</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="modal" id="modal">
+          <div class="modal-content">
+            <span class="close" id="closeModalBtn" onclick="closeModal()">&times;</span>
+            <h2>Manage User</h2>
+            <div id="userDetails">
+              <p><strong>Email:</strong> <span id="userEmail"></span></p>
+              <p><strong>Role:</strong> <span id="userRole"></span></p>
+            </div>
+            <div class="actions">
+              <button class="answer-btn" onclick="submitResponse(1)">Change role to admin</button>
+              <button class="answer-btn-2" onclick="submitResponse(2)">Change role to user</button>
+            </div>
+          </div>
+        </div>
+
+
+        <!--========== CONTENTS ==========-->
+        <div class="main-content">
+
+            <main class="table" id="customers_table">
+                <section class="table__header">
+                    <h1>User's Tickets</h1>
+                    <div class="input-group">
+                        <input type="search" placeholder="Search Data...">
+                        <img src="images/search.png" alt="">
+                    </div>
+                    <div class="export__file">
+                        <label for="export-file" class="export__file-btn" title="Export File"></label>
+                        <input type="checkbox" id="export-file">
+                        <div class="export__file-options">
+                            <label>Export As &nbsp; &#10140;</label>
+                            <label for="export-file" id="toPDF">PDF <img src="images/pdf.png" alt=""></label>
+                            <label for="export-file" id="toJSON">JSON <img src="images/json.png" alt=""></label>
+                            <label for="export-file" id="toCSV">CSV <img src="images/csv.png" alt=""></label>
+                            <label for="export-file" id="toEXCEL">EXCEL <img src="images/excel.png" alt=""></label>
+                        </div>
+                    </div>
+                </section>
+                <section class="table__body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> Name <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Email <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Status <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Role <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Referral-code <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Actions <span class="icon-arrow">&UpArrow;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for users in all_users %}
+                            <tr>
+                                <td data-label="Name">{{ users[1] }}</td>
+                                <td data-label="Email">{{ users[2] }}</td>
+                                <td data-label="Status">{{ users[4] }}</td>
+                                <td data-label="Role">
+                                    <p class="status {{ users[5] }}">{{ users[5] }}</p>
+                                </td>
+                                <td data-label="Referral-code">{{ users[6] }}</td>
+                                <td >
+                                    <div class="actions">
+                                        <button class="answer-btn" onclick="openModal('{{ users[2] }}', '{{ users[5] }}')">Change Role</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </main>
+        </div>
+
+
+
+
+
+
+        <script src="../static/js/table.js"></script>
+        <script src="../static/js/users.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+         <!--========== SWIPER JS ==========-->
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+        <!-- swiper link -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+
+    </body>
+</html>

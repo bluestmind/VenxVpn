@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/signup.css">
+    <title>Sign Up</title>
+</head>
+<body>
+    <div id="modalWrapper" class="modal-wrapper" style="display: none;">
+        <div id="modalContent" class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>{{ error_message }}</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="logo">
+            <img src="../static/UI_Content/black%20logo.png" alt="Logo">
+        </div>
+        <div class="header">
+            <h2> Sign Up</h2>
+        </div>
+        <form action="/signup_form" method="POST" onsubmit="return validatePasswords()">
+            <input type="text" name="full_name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="referral_code" placeholder="Referral Code">
+            <div class="password-input">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <img src="../static/UI_Content/eye.png" alt="Toggle Password Visibility" class="toggle-password-button" onclick="togglePasswordVisibility('password')">
+            </div>
+            <div class="password-input">
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                <img src="../static/UI_Content/eye.png" alt="Toggle Password Visibility" class="toggle-password-button" onclick="togglePasswordVisibility('confirm_password')">
+            </div>
+            <button type="submit" class="signup-button">Sign Up</button>
+        </form>
+        <div class="text_create" style="margin-top: 15px;"> Do you have an account? <a href="/login" style="text-decoration: none; color: rgb(103, 103, 227);">Login</a></div>
+    </div>
+
+    <footer>
+
+    </footer>
+
+    <script>
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function validatePasswords() {
+            const password = document.getElementById('password').value;
+            const confirm_password = document.getElementById('confirm_password').value;
+            if (password !== confirm_password) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+
+        // Function to display the modal
+        function displayModal() {
+            var modalWrapper = document.getElementById("modalWrapper");
+            modalWrapper.style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            var modalWrapper = document.getElementById("modalWrapper");
+            modalWrapper.style.display = "none";
+        }
+
+        // Call displayModal function if error_message exists
+        {% if error_message %}
+        displayModal();
+        {% endif %}
+    </script>
+</body>
+</html>

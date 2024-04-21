@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+
+</head>
+<body>
+    <div class="container">
+      <h2>Admin Panel</h2>
+      <ul class="responsive-table">
+        <li class="table-header">
+          <div class="col col-1">Ticket ID</div>
+          <div class="col col-2">Subject</div>
+          <div class="col col-3">Status</div>
+          <div class="col col-4">Action</div>
+        </li>
+        <li class="table-row">
+          <div class="col col-1" data-label="Ticket ID">1</div>
+          <div class="col col-2" data-label="Subject">Issue with login</div>
+          <div class="col col-3" data-label="Status">Open</div>
+          <div class="col col-4" data-label="Action"><button onclick="answerTicket(1)">Answer</button></div>
+        </li>
+        <!-- Additional rows will be dynamically added here -->
+      </ul>
+    </div>
+
+
+
+    <!-- JavaScript functions for handling actions -->
+    <script>
+        // Sample ticket data with message
+        const tickets = [
+            { id: 1, subject: "Issue with login", status: "Open", message: "User unable to login. Need assistance." },
+            { id: 2, subject: "Payment issue resolved", status: "Closed", message: "Payment issue resolved successfully." },
+            { id: 3, subject: "Query about product features", status: "Answered", message: "User has a question about the features of our product." }
+        ];
+
+        // Display tickets in the appropriate sections
+        function displayTickets() {
+            const table = document.querySelector(".responsive-table");
+            table.innerHTML = ""; // Clear existing content
+
+            // Adding table header
+            const tableHeader = document.createElement("li");
+            tableHeader.classList.add("table-header");
+            tableHeader.innerHTML = `
+                <div class="col col-1">Ticket ID</div>
+                <div class="col col-2">Subject</div>
+                <div class="col col-3">Status</div>
+                <div class="col col-4">Action</div>
+            `;
+            table.appendChild(tableHeader);
+
+            // Adding table rows for each ticket
+            tickets.forEach(ticket => {
+                const row = document.createElement("li");
+                row.classList.add("table-row");
+                row.innerHTML = `
+                    <div class="col col-1" data-label="Ticket ID">${ticket.id}</div>
+                    <div class="col col-2" data-label="Subject">${ticket.subject}</div>
+                    <div class="col col-3" data-label="Status">${ticket.status}</div>
+                    <div class="col col-4" data-label="Action">
+                        ${ticket.status === "Open" ? `<button onclick="answerTicket(${ticket.id})">Answer</button>` : ""}
+                        ${ticket.status === "Answered" ? `<button onclick="viewAnswer(${ticket.id})">View Answer</button>` : ""}
+                    </div>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // Simulate answering a ticket
+        function answerTicket(ticketId) {
+            const ticket = tickets.find(t => t.id === ticketId);
+            if (ticket) {
+                // Simulate fetching answer data from server and displaying answer form
+                alert("Answering ticket with ID: " + ticketId);
+                // For demonstration purposes, let's update ticket status to "Answered"
+                ticket.status = "Answered";
+                // Update UI
+                displayTickets();
+            }
+        }
+
+        // Show the message of a ticket
+        function viewAnswer(ticketId) {
+            const ticket = tickets.find(t => t.id === ticketId);
+            if (ticket) {
+                alert("Message of Ticket ID " + ticketId + ": " + ticket.message);
+                // In a real application, you might display the message in a modal or another element on the page
+            }
+        }
+
+        // Initial display of tickets
+        displayTickets();
+    </script>
+
+</body>
+</html>

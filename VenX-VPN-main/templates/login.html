@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <div id="modalWrapper" class="modal-wrapper" style="display: none;">
+        <div id="modalContent" class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>{{ error_message }}</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="logo">
+            <img src="../static/UI_Content/black%20logo.png" alt="Logo">
+        </div>
+        <div class="header">
+            <h2>Log In</h2>
+        </div>
+        <form action="/login_form" method="POST">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+    <div class="text_create" style="margin-top: 15px;"> Don't have an account? <a href="/signup" style="text-decoration: none; color: rgb(103, 103, 227);">Sign Up</a></div>
+
+    </div>
+    <script>
+        function displayModal() {
+            var modalWrapper = document.getElementById("modalWrapper");
+            modalWrapper.style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            var modalWrapper = document.getElementById("modalWrapper");
+            modalWrapper.style.display = "none";
+        }
+
+        // Call displayModal function if error_message exists
+        {% if error_message %}
+        displayModal();
+        {% endif %}
+    </script>
+</body>
+</html>
